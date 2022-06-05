@@ -21,6 +21,15 @@ function App() {
             changeTryAgain()
         }
     }
+    let handleKeyPress = (e) => {
+        if(value != ''){
+
+        
+        if(e.key === 'Enter'){
+           translateMessage();
+        }
+    }
+    }
     return (
         <div className="App">
             <header className="App-header">
@@ -28,9 +37,9 @@ function App() {
                 </header>
                 <h2>What do you wanna translate bruh?</h2>
                 <div className="container">
-                <input value={value} type="text" onChange={(v) => setValue(v.value)} placeholder='write here bruh'></input>
-               <div className={`translation-arrow ${translation != '' ? 'active' :''}`}> <i className="fal fa-arrow-down"></i></div>
-                {translation != ''  ? <div className="translation"> {translation}</div> : null}
+                <input onKeyPress={handleKeyPress} value={value} type="text" onChange={(v) => setValue(v.value)} placeholder='write here bruh'></input>
+                <div className={`translation-arrow ${translation != '' ? 'active' :''}`}> <i className="fal fa-arrow-down"></i></div>
+                {translation != ''  ? <div className="translation animated-med fadeInDown"> {translation}</div> : null}
                 
                 <button className={`translate-btn ${value != '' ? '' : 'disabled'}`} onClick={translateMessage}>{!tryAgain ? 'Translate!':'Try Again'}</button>
                 </div>
