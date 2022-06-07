@@ -1,12 +1,33 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Lottie from 'react-lottie-segments';
+import * as animationData from '../assets/lottie_animations/egg.json'
 
-const initValue = ""
+const initValue = "";
+
+const defaultOptions = {
+    loop: false,
+    autoplay: false, 
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice'
+    }
+  };
 
 function Form() {
     const [values, setValues] = useState(initValue)
     const [translation, setTranslation] = useState("")
     const [language, setLanguage] = useState("es")
+    const [hasDexLang, setHasDexLang] = useState(false)
+    const [isStopped, setIsStopped] = useState(true);
+    const [goto, setGoto] = useState();
+
+
+
+    const [sequence, setSequence] = useState({
+        segments: [108, 138],
+        forceFlag: true
+      });
 
     const onChange = evt => {
         setValues(evt.target.value)
@@ -20,6 +41,19 @@ function Form() {
     const selectLanguage = (e) => {
         setLanguage(e.target.value); 
     }
+    const setDexLanguage = () => {
+        setIsStopped(false);
+        setHasDexLang(true)
+    }
+
+    const animate = () => {
+        setGoto({
+            value: 114,
+            isFrame: true
+          })
+        setIsStopped(false);
+        setDexLanguage();
+      }
 
     const getTranslation = () => {
         const options = {
@@ -53,9 +87,8 @@ function Form() {
             </form>
             <br></br>
             <h2>What language bruh?</h2>
-           
             <select name="languages" id="lang" onChange={selectLanguage}>
-                <option value="es" >Spanish</option>
+                <option value="es">Spanish</option>
                 <option value="it">Italian</option>
                 <option value="cs">Czech</option>
                 <option value="de">German</option>
@@ -63,12 +96,24 @@ function Form() {
                 <option value="la">Latin</option>
                 <option value="no">Norwegian</option>
                 <option value="pt">Portuguese</option>
+                {hasDexLang ? <option value="dex">Dex Lang</option> : null}
+                
             </select>
             <br></br>
             <br></br>
             <button onClick={onSubmit}>Translate it bruh</button>
             <br></br>
             <h2>{translation}</h2>
+            <div onClick={()=> animate()} className="easter-egg-btn ">
+            <Lottie options={defaultOptions}
+              height={100}
+              width={100}
+              isStopped={isStopped}
+              
+              goToAndPlay={goto}
+              />
+                {/* <i className="fa fa-egg animated wobble infinite"></i> */}
+            </div>
         </div>
     )
 }

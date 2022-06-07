@@ -1,5 +1,7 @@
 import React from 'react'
-import './App.css';
+import './App.scss';
+import './assets/css/all.css';
+import './assets/css/animate.css';
 
 import Form from './components/Form';
 
