@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Lottie from 'react-lottie-segments';
-import * as animationData from '../assets/lottie_animations/egg.json'
+import * as animationData from '../assets/lottie_animations/egg.json';
+import getDexLangTranslation from '../helpers/getTranslation';
 
 const initValue = "";
 
@@ -65,13 +66,17 @@ function Form() {
                 'X-RapidAPI-Key': '85f2f02d04msh465340af7983dbep158beejsnc533b3ca83f5'
             }
         };
-
-        axios.request(options).then(function (response) {
+        if(language == 'dex'){
+            setTranslation(getDexLangTranslation())
+        }else{
+           axios.request(options).then(function (response) {
             // console.log(response.data.responseData.translatedText);
             setTranslation(response.data.responseData.translatedText)
         }).catch(function (error) {
             console.error(error);
-        });
+        }); 
+        }
+        
     }
 
 
