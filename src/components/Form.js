@@ -2,17 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const initValue = ""
-const LANGUAGES = [
-//                 { label: "es", value: "Spanish" },
-//                 { label: "it", value: "Italian" },
-//                 { label: "cs", value: "Czech" },
-//                 { label: "de", value: "German" },
-//                 { label: "ja", value: "Japanese" },
-//                 { label: "la", value: "Latin" },
-//                 { label: "no", value: "Norwegian" },
-//                 { label: "pt", value: "Portuguese" }
-// ]
-
 
 function Form() {
     const [values, setValues] = useState(initValue)
@@ -21,8 +10,6 @@ function Form() {
 
     const onChange = evt => {
         setValues(evt.target.value)
-        console.log(evt.target.value)
-
     }
     
     const onSubmit = evt => {
@@ -30,9 +17,8 @@ function Form() {
         getTranslation();
     }
 
-    const chooseLanguage = () => {
-     
-        setLanguage()
+    const selectLanguage = (e) => {
+        setLanguage(e.target.value); 
     }
 
     const getTranslation = () => {
@@ -47,7 +33,7 @@ function Form() {
         };
 
         axios.request(options).then(function (response) {
-            console.log(response.data.responseData.translatedText);
+            // console.log(response.data.responseData.translatedText);
             setTranslation(response.data.responseData.translatedText)
         }).catch(function (error) {
             console.error(error);
@@ -68,15 +54,15 @@ function Form() {
             <br></br>
             <h2>What language bruh?</h2>
            
-            <select name="languages" id="lang">
-                <option id="es">Spanish</option>
-                <option id="it">Italian</option>
-                <option id="cs">Czech</option>
-                <option id="de">German</option>
-                <option id="ja">Japanese</option>
-                <option id="la">Latin</option>
-                <option id="no">Norwegian</option>
-                <option id="pt">Portuguese</option>
+            <select name="languages" id="lang" onChange={selectLanguage}>
+                <option value="es" >Spanish</option>
+                <option value="it">Italian</option>
+                <option value="cs">Czech</option>
+                <option value="de">German</option>
+                <option value="ja">Japanese</option>
+                <option value="la">Latin</option>
+                <option value="no">Norwegian</option>
+                <option value="pt">Portuguese</option>
             </select>
             <br></br>
             <br></br>
