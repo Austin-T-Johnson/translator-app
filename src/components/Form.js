@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import Lottie from 'react-lottie-segments';
 import * as animationData from '../assets/lottie_animations/egg.json';
@@ -22,11 +22,17 @@ function Form() {
     const [hasDexLang, setHasDexLang] = useState(false)
     const [isStopped, setIsStopped] = useState(true);
     const [goto, setGoto] = useState();
-    const [voiceCode, setVoiceCode] = useState()
+    const [voiceCode, setVoiceCode] = useState();
+    const [audioSrc, setaudioSrc] = useState()
+    useEffect(()=>{
+       // elementRef.current.play();
+    }, [audioSrc])
+
     const [sequence, setSequence] = useState({
         segments: [108, 138],
         forceFlag: true
     });
+    const elementRef = useRef();
 
     const onChange = evt => {
         setValues(evt.target.value)
@@ -58,7 +64,7 @@ function Form() {
         setDexLanguage();
     }
 
-    const getTranslation = () => {
+    const getTranslation = async () => {
         const options = {
             method: 'GET',
             url: 'https://translated-mymemory---translation-memory.p.rapidapi.com/api/get',
@@ -68,11 +74,18 @@ function Form() {
                 'X-RapidAPI-Key': '85f2f02d04msh465340af7983dbep158beejsnc533b3ca83f5'
             }
         };
+        
         if (language == 'dex') {
             setTranslation(getDexLangTranslation())
         } else {
-            axios.request(options).then(function (response) {
-                setTranslation(response.data.responseData.translatedText)
+            axios.request(options).then(async (response) => {
+                setTranslation(response.data.responseData.translatedText);
+                
+                let translation = await getTextToVoice(response.data.responseData.translatedText);
+               
+                setaudioSrc(translation.data.audio_file);
+                
+                
             }).catch(function (error) {
                 console.error(error);
             });
@@ -80,33 +93,36 @@ function Form() {
 
     }
 
-    const getTextToVoice = () => {
-        const encodedParams = new URLSearchParams();
-        encodedParams.append("voice_code", `${language}`);
-        encodedParams.append("text", `${translation}`);
-        encodedParams.append("speed", "1.00");
-        encodedParams.append("pitch", "1.00");
-        encodedParams.append("output_type", "audio_url");
+    const getTextToVoice = (text) => {
+        // const encodedParams = new URLSearchParams();
+        // encodedParams.append("voice_code", `${language}`);
+        // encodedParams.append("text", `${text}`);
+        // encodedParams.append("speed", "1.00");
+        // encodedParams.append("pitch", "1.00");
+        // encodedParams.append("output_type", "audio_url");
 
-        const options = {
-            method: 'POST',
-            url: 'https://cloudlabs-text-to-speech.p.rapidapi.com/synthesize',
-            headers: {
-                'content-type': 'application/x-www-form-urlencoded',
-                'X-RapidAPI-Host': 'cloudlabs-text-to-speech.p.rapidapi.com',
-                'X-RapidAPI-Key': '85f2f02d04msh465340af7983dbep158beejsnc533b3ca83f5'
-            },
-            data: encodedParams
-        };
+        // const options = {
+        //     method: 'POST',
+        //     url: 'https://cloudlabs-text-to-speech.p.rapidapi.com/synthesize',
+        //     headers: {
+        //         'content-type': 'application/x-www-form-urlencoded',
+        //         'X-RapidAPI-Host': 'cloudlabs-text-to-speech.p.rapidapi.com',
+        //         'X-RapidAPI-Key': '85f2f02d04msh465340af7983dbep158beejsnc533b3ca83f5'
+        //     },
+        //     data: encodedParams
+        // };
 
-        axios.request(options).then(function (response) {
-            console.log(response.data);
-        }).catch(function (error) {
-            console.error(error);
-        });
+
+
+        return axios.post('/api/test', {text, language})
     }
 
-
+    const onPlay = async () => {
+        elementRef.current.play();
+        //elementRef.src = url;
+        
+        
+    }
 
     return (
         <div>
@@ -119,8 +135,9 @@ function Form() {
             </form>
             <br></br>
             <h2>What language bruh?</h2>
+            <audio src={audioSrc} ref={elementRef}></audio>
             <select name="languages" onChange={selectLanguage}>
-                <option value="es-MX-2" >Spanish</option>
+                <option value="es" >Spanish</option>
                 <option value="it">Italian</option>
                 <option value="fr">French</option>
                 <option value="de">German</option>
@@ -138,13 +155,12 @@ function Form() {
             <br></br>
             <h2>{translation}</h2>
             <br></br>
-            <i id="speaker" className="fa-solid fa-volume-high" onClick={getTextToVoice}></i>
+            <i id="speaker" className="fa-solid fa-volume-high" onClick={onPlay}></i>
             <div onClick={() => animate()} className="easter-egg-btn ">
                 <Lottie options={defaultOptions}
                     height={100}
                     width={100}
                     isStopped={isStopped}
-
                     goToAndPlay={goto}
                 />
                
