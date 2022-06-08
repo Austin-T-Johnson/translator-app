@@ -22,9 +22,7 @@ function Form() {
     const [hasDexLang, setHasDexLang] = useState(false)
     const [isStopped, setIsStopped] = useState(true);
     const [goto, setGoto] = useState();
-
-
-
+    const [voiceCode, setVoiceCode] = useState()
     const [sequence, setSequence] = useState({
         segments: [108, 138],
         forceFlag: true
@@ -40,12 +38,16 @@ function Form() {
     }
 
     const selectLanguage = (e) => {
+        console.log('EVENT TARGET:', e.target.value)
         setLanguage(e.target.value);
+       
     }
     const setDexLanguage = () => {
         setIsStopped(false);
         setHasDexLang(true)
     }
+
+   
 
     const animate = () => {
         setGoto({
@@ -80,8 +82,8 @@ function Form() {
 
     const getTextToVoice = () => {
         const encodedParams = new URLSearchParams();
-        encodedParams.append("voice_code", "pt-BR-1");
-        encodedParams.append("text", "olá, qual é o seu nome?");
+        encodedParams.append("voice_code", `${language}`);
+        encodedParams.append("text", `${values}`);
         encodedParams.append("speed", "1.00");
         encodedParams.append("pitch", "1.00");
         encodedParams.append("output_type", "audio_url");
@@ -117,8 +119,8 @@ function Form() {
             </form>
             <br></br>
             <h2>What language bruh?</h2>
-            <select name="languages" id="lang" onChange={selectLanguage}>
-                <option value="es">Spanish</option>
+            <select name="languages" onChange={selectLanguage}>
+                <option value="es-MX-2" >Spanish</option>
                 <option value="it">Italian</option>
                 <option value="fr">French</option>
                 <option value="de">German</option>
@@ -135,6 +137,8 @@ function Form() {
             <button onClick={onSubmit}>Translate it bruh</button>
             <br></br>
             <h2>{translation}</h2>
+            <br></br>
+            <i id="speaker" className="fa-solid fa-volume-high" onClick={getTextToVoice}></i>
             <div onClick={() => animate()} className="easter-egg-btn ">
                 <Lottie options={defaultOptions}
                     height={100}
@@ -143,7 +147,7 @@ function Form() {
 
                     goToAndPlay={goto}
                 />
-                {/* <i className="fa fa-egg animated wobble infinite"></i> */}
+               
             </div>
         </div>
     )
