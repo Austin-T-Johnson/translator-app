@@ -18,7 +18,7 @@ const defaultOptions = {
 function Form() {
     const [values, setValues] = useState(initValue)
     const [translation, setTranslation] = useState("")
-    const [language, setLanguage] = useState("es-MX-2")
+    const [language, setLanguage] = useState("es")
     const [hasDexLang, setHasDexLang] = useState(false)
     const [isStopped, setIsStopped] = useState(true);
     const [goto, setGoto] = useState();
@@ -113,7 +113,7 @@ function Form() {
 
 
 
-        return axios.post('/api/test', {text, language})
+        return axios.post('/api/test', {text:'my penis is hard', language})
     }
 
     const onPlay = async () => {
@@ -136,7 +136,7 @@ function Form() {
             <h2>What language bruh?</h2>
             <audio src={audioSrc} ref={elementRef}></audio>
             <select name="languages" onChange={selectLanguage}>
-                <option value="es" >Spanish</option>
+                <option value="es">Spanish</option>
                 <option value="it">Italian</option>
                 <option value="fr">French</option>
                 <option value="de">German</option>
