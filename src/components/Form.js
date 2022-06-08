@@ -74,8 +74,9 @@ function Form() {
             }
         };
         
-        if (language == 'dex') {
-            setTranslation(getDexLangTranslation())
+        if (language == 'en') {
+            let translation = await getTextToVoice(response.data.responseData.translatedText);
+                setaudioSrc(translation.data.audio_file);
         } else {
             axios.request(options).then(async (response) => {
                 setTranslation(response.data.responseData.translatedText);
@@ -145,7 +146,7 @@ function Form() {
                 <option value="no">Norwegian</option>
                 <option value="pt">Portuguese</option>
                 <option value="cs">Czech</option>
-                {hasDexLang ? <option value="dex">Dex Lang</option> : null}
+                {hasDexLang ? <option value="en">Dex Lang</option> : null}
 
             </select>
             <br></br>
