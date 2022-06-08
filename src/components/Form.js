@@ -18,7 +18,7 @@ const defaultOptions = {
 function Form() {
     const [values, setValues] = useState(initValue)
     const [translation, setTranslation] = useState("")
-    const [language, setLanguage] = useState("es-MX-2")
+    const [language, setLanguage] = useState("es")
     const [hasDexLang, setHasDexLang] = useState(false)
     const [isStopped, setIsStopped] = useState(true);
     const [goto, setGoto] = useState();
