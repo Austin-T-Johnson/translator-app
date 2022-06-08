@@ -83,7 +83,7 @@ function Form() {
     const getTextToVoice = () => {
         const encodedParams = new URLSearchParams();
         encodedParams.append("voice_code", `${language}`);
-        encodedParams.append("text", `${values}`);
+        encodedParams.append("text", `${translation}`);
         encodedParams.append("speed", "1.00");
         encodedParams.append("pitch", "1.00");
         encodedParams.append("output_type", "audio_url");
