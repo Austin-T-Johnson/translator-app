@@ -18,7 +18,7 @@ const defaultOptions = {
 function Form() {
     const [values, setValues] = useState(initValue)
     const [translation, setTranslation] = useState("")
-    const [language, setLanguage] = useState("es")
+    const [language, setLanguage] = useState("es-MX-2")
     const [hasDexLang, setHasDexLang] = useState(false)
     const [isStopped, setIsStopped] = useState(true);
     const [goto, setGoto] = useState();
@@ -46,9 +46,8 @@ function Form() {
         setIsStopped(false);
         setHasDexLang(true)
     }
-
+    
    
-
     const animate = () => {
         setGoto({
             value: 114,
@@ -119,16 +118,16 @@ function Form() {
             </form>
             <br></br>
             <h2>What language bruh?</h2>
-            <select name="languages" onChange={selectLanguage}>
+            <select value={language} name="languages" onChange={selectLanguage}>
+                
                 <option value="es-MX-2" >Spanish</option>
-                <option value="it">Italian</option>
-                <option value="fr">French</option>
-                <option value="de">German</option>
-                <option value="ja">Japanese</option>
-                <option value="la">Latin</option>
-                <option value="no">Norwegian</option>
-                <option value="pt">Portuguese</option>
-                <option value="cs">Czech</option>
+                <option value="it-IT-1">Italian</option>
+                <option value="fr-FR-1">French</option>
+                <option value="de-DE-1">German</option>
+                <option value="ja-JP-1">Japanese</option>
+                <option value="nb-NO-2">Norwegian</option>
+                <option value="pt-PT-1">Portuguese</option>
+                <option value="cs-CZ-1">Czech</option>
                 {hasDexLang ? <option value="dex">Dex Lang</option> : null}
 
             </select>
