@@ -114,7 +114,7 @@ function Form() {
 
 
 
-        return axios.post('/api/test', {text:'my penis is hard', language})
+        return axios.post('/api/test', {text, language})
     }
 
     const onPlay = async () => {
