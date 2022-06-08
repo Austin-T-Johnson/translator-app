@@ -8,12 +8,12 @@ const initValue = "";
 
 const defaultOptions = {
     loop: false,
-    autoplay: false, 
+    autoplay: false,
     animationData: animationData,
     rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice'
+        preserveAspectRatio: 'xMidYMid slice'
     }
-  };
+};
 
 function Form() {
     const [values, setValues] = useState(initValue)
@@ -28,19 +28,19 @@ function Form() {
     const [sequence, setSequence] = useState({
         segments: [108, 138],
         forceFlag: true
-      });
+    });
 
     const onChange = evt => {
         setValues(evt.target.value)
     }
-    
+
     const onSubmit = evt => {
         evt.preventDefault();
         getTranslation();
     }
 
     const selectLanguage = (e) => {
-        setLanguage(e.target.value); 
+        setLanguage(e.target.value);
     }
     const setDexLanguage = () => {
         setIsStopped(false);
@@ -51,10 +51,10 @@ function Form() {
         setGoto({
             value: 114,
             isFrame: true
-          })
+        })
         setIsStopped(false);
         setDexLanguage();
-      }
+    }
 
     const getTranslation = () => {
         const options = {
@@ -66,17 +66,42 @@ function Form() {
                 'X-RapidAPI-Key': '85f2f02d04msh465340af7983dbep158beejsnc533b3ca83f5'
             }
         };
-        if(language == 'dex'){
+        if (language == 'dex') {
             setTranslation(getDexLangTranslation())
-        }else{
-           axios.request(options).then(function (response) {
-            // console.log(response.data.responseData.translatedText);
-            setTranslation(response.data.responseData.translatedText)
+        } else {
+            axios.request(options).then(function (response) {
+                setTranslation(response.data.responseData.translatedText)
+            }).catch(function (error) {
+                console.error(error);
+            });
+        }
+
+    }
+
+    const getTextToVoice = () => {
+        const encodedParams = new URLSearchParams();
+        encodedParams.append("voice_code", "pt-BR-1");
+        encodedParams.append("text", "olá, qual é o seu nome?");
+        encodedParams.append("speed", "1.00");
+        encodedParams.append("pitch", "1.00");
+        encodedParams.append("output_type", "audio_url");
+
+        const options = {
+            method: 'POST',
+            url: 'https://cloudlabs-text-to-speech.p.rapidapi.com/synthesize',
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded',
+                'X-RapidAPI-Host': 'cloudlabs-text-to-speech.p.rapidapi.com',
+                'X-RapidAPI-Key': '85f2f02d04msh465340af7983dbep158beejsnc533b3ca83f5'
+            },
+            data: encodedParams
+        };
+
+        axios.request(options).then(function (response) {
+            console.log(response.data);
         }).catch(function (error) {
             console.error(error);
-        }); 
-        }
-        
+        });
     }
 
 
@@ -95,28 +120,29 @@ function Form() {
             <select name="languages" id="lang" onChange={selectLanguage}>
                 <option value="es">Spanish</option>
                 <option value="it">Italian</option>
-                <option value="cs">Czech</option>
+                <option value="fr">French</option>
                 <option value="de">German</option>
                 <option value="ja">Japanese</option>
                 <option value="la">Latin</option>
                 <option value="no">Norwegian</option>
                 <option value="pt">Portuguese</option>
+                <option value="cs">Czech</option>
                 {hasDexLang ? <option value="dex">Dex Lang</option> : null}
-                
+
             </select>
             <br></br>
             <br></br>
             <button onClick={onSubmit}>Translate it bruh</button>
             <br></br>
             <h2>{translation}</h2>
-            <div onClick={()=> animate()} className="easter-egg-btn ">
-            <Lottie options={defaultOptions}
-              height={100}
-              width={100}
-              isStopped={isStopped}
-              
-              goToAndPlay={goto}
-              />
+            <div onClick={() => animate()} className="easter-egg-btn ">
+                <Lottie options={defaultOptions}
+                    height={100}
+                    width={100}
+                    isStopped={isStopped}
+
+                    goToAndPlay={goto}
+                />
                 {/* <i className="fa fa-egg animated wobble infinite"></i> */}
             </div>
         </div>
