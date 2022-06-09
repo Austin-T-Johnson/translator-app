@@ -77,7 +77,7 @@ function Form() {
         if (language == 'en') {
             let translation = await getTextToVoice(getDexLangTranslation());
             setaudioSrc(translation.data.audio_file);
-            setTranslation(getDexLangTranslation())
+            setTranslation("?????")
         } else {
             axios.request(options).then(async (response) => {
                 setTranslation(response.data.responseData.translatedText);
