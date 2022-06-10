@@ -114,17 +114,19 @@ select {
     position: fixed;
     top: 0;
     left: 0;
-    min-width: 100%;
-    max-width: 100%;
+    height:100%;
+    width:100%;
     z-index: -1;
+    object-fit: cover;
 }
 #vid {
     position: fixed;
     top: 0;
     left: 0;
-    min-width: 100%;
-    max-width: 100%;
+    height:100%;
+    width:100%;
     z-index: -2;
+    object-fit: cover;
 }
 /* From uiverse.io by @ercnersoy */
 #speaker {
@@ -263,7 +265,7 @@ button:hover .arrow:before {
     position: absolute;
     width: 100px;
     background-image: linear-gradient(180deg, RGB(100, 92, 255), RGB(100, 92, 255));
-    height: 130%;
+    height: 170%;
     animation: rotBGimg 3s linear infinite;
     transition: all 0.2s linear;
   }
@@ -290,6 +292,10 @@ button:hover .arrow:before {
 //     background-image: linear-gradient(180deg, rgb(81, 255, 0), purple);
 //     animation: rotBGimg 3.5s linear infinite;
 //   } 
-  
+  .c-container{
+      position:relative;
+      height:100vh;
+      width:100%;
+  }
   
    

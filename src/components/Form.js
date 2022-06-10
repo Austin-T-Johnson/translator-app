@@ -3,6 +3,7 @@ import axios from 'axios';
 import Lottie from 'react-lottie-segments';
 import * as animationData from '../assets/lottie_animations/egg.json';
 import getDexLangTranslation from '../helpers/getTranslation';
+import video from '../assets/videos/question.webm';
 
 const initValue = "";
 
@@ -138,7 +139,7 @@ function Form() {
     }
 
     return (
-        <div>
+        <div className="c-container">
             <header className="App-header">
               
                 <h1>What do you wanna translate bruh?</h1>
@@ -179,8 +180,8 @@ function Form() {
                 <button id="speaker" onClick={onPlay}></button>
             </div>
             <br></br>
-            <img src='imgUrl' id='myImg'></img>
-            <video id="vid" src="https://www.dropbox.com/s/evg0a5bjcwzkqfd/glowing-question-marks-SBV-300077975-HD.mp4?raw=1" muted loop autoPlay></video>
+            <img id='myImg'></img>
+            <video id="vid" src={video} muted loop autoPlay></video>
 
             <div onClick={() => animate()} className="easter-egg-btn ">
                 <Lottie options={defaultOptions}
