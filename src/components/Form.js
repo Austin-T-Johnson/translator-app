@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import Lottie from 'react-lottie-segments';
 import * as animationData from '../assets/lottie_animations/egg.json';
-import getDexLangTranslation from '../helpers/getTranslation';
+import getEasterEggTranslation from '../helpers/getTranslation';
 import video from '../assets/videos/question.webm';
 
 const initValue = "";
@@ -20,7 +20,7 @@ function Form() {
     const [values, setValues] = useState(initValue)
     const [translation, setTranslation] = useState("")
     const [language, setLanguage] = useState("es")
-    const [hasDexLang, setHasDexLang] = useState(false)
+    const [hasEasterEgg, setHasEasterEgg] = useState(false)
     const [isStopped, setIsStopped] = useState(true);
     const [goto, setGoto] = useState();
     const [voiceCode, setVoiceCode] = useState();
@@ -51,7 +51,7 @@ function Form() {
     }
     const setDexLanguage = () => {
         setIsStopped(false);
-        setHasDexLang(true)
+        setHasEasterEgg(true)
     }
 
 
@@ -76,7 +76,7 @@ function Form() {
         };
 
         if (language == 'en') {
-            let translation = await getTextToVoice(getDexLangTranslation());
+            let translation = await getTextToVoice(getEasterEggTranslation());
             setaudioSrc(translation.data.audio_file);
             setTranslation("?????")
         } else {
@@ -126,7 +126,7 @@ function Form() {
         } else if (selected.value == "cs") {
             imgUrl = "https://www.dropbox.com/s/6v4sd4biawar6ti/czech_republic1.jpeg?raw=1"
         } else if (selected.value == "en") {
-            imgUrl = "https://www.dropbox.com/s/z3oaxles95qizwb/IMG_2574.jpg?raw=1"
+            imgUrl = "https://www.dropbox.com/s/yr72a8cilby4l2v/eastereggs.jpeg?raw=1"
         } else {
             imgUrl = ""
         }
@@ -164,7 +164,7 @@ function Form() {
                 <option value="no">Norwegian</option>
                 <option value="pt">Portuguese</option>
                 <option value="cs">Czech</option>
-                {hasDexLang ? <option value="en">Dex Lang</option> : null}
+                {hasEasterEgg ? <option value="en">Easter Egg!</option> : null}
 
             </select>
             <br></br>
