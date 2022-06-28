@@ -5,7 +5,10 @@ import * as animationData from '../assets/lottie_animations/egg.json';
 import getEasterEggTranslation from '../helpers/getTranslation';
 import video from '../assets/videos/question.webm';
 
-const initValue = "";
+const initValue = {
+    input: '',
+    selectedLang: ''
+};
 
 const defaultOptions = {
     loop: false,
@@ -19,7 +22,7 @@ const defaultOptions = {
 function Form() {
     const [values, setValues] = useState(initValue)
     const [translation, setTranslation] = useState("")
-    const [language, setLanguage] = useState("es")
+    const [language, setLanguage] = useState("")
     const [hasEasterEgg, setHasEasterEgg] = useState(false)
     const [isStopped, setIsStopped] = useState(true);
     const [goto, setGoto] = useState();
@@ -36,7 +39,9 @@ function Form() {
     const elementRef = useRef();
 
     const onChange = evt => {
-        setValues(evt.target.value)
+       
+        setValues({...values, input: evt.target.value})
+       
     }
 
     const onSubmit = evt => {
@@ -46,10 +51,10 @@ function Form() {
 
     const selectLanguage = (e) => {
         console.log('EVENT TARGET:', e.target.value)
-        setLanguage(e.target.value);
+        setValues({...values, selectedLang: e.target.value});
 
     }
-    const setDexLanguage = () => {
+    const setEasterEgg = () => {
         setIsStopped(false);
         setHasEasterEgg(true)
     }
@@ -61,27 +66,28 @@ function Form() {
             isFrame: true
         })
         setIsStopped(false);
-        setDexLanguage();
+        setEasterEgg();
     }
 
     const getTranslation = async () => {
         const options = {
             method: 'GET',
             url: 'https://translated-mymemory---translation-memory.p.rapidapi.com/api/get',
-            params: { langpair: `en|${language}`, q: values },
+            params: { langpair: `en|${values.selectedLang}`, q: values.input },
             headers: {
                 'X-RapidAPI-Host': 'translated-mymemory---translation-memory.p.rapidapi.com',
                 'X-RapidAPI-Key': '85f2f02d04msh465340af7983dbep158beejsnc533b3ca83f5'
             }
         };
 
-        if (language == 'en') {
-            let translation = await getTextToVoice(getEasterEggTranslation());
-            setaudioSrc(translation.data.audio_file);
+        if (values.selectedLang === 'en') {
+            // let translation = await getTextToVoice(getEasterEggTranslation());
+            // setaudioSrc(translation.data.audio_file);
             setTranslation("?????")
         } else {
             axios.request(options).then(async (response) => {
                 setTranslation(response.data.responseData.translatedText);
+                console.log(response.data.responseData.translatedText)
 
                 let translation = await getTextToVoice(response.data.responseData.translatedText);
 
@@ -138,6 +144,25 @@ function Form() {
         selectLanguage(e);
     }
 
+    const isDisabled = () => {
+       if(values.input === '' || values.selectedLang === '' ){
+        // console.log("input in disabled func:", values.input)
+        // console.log("lang in disabled func:", values.selectedLang)
+            return true;
+           
+
+        } else  {
+            console.log("input in disabled func:", values.input)
+            console.log("lang in disabled func:", values.selectedLang)
+            return false;
+        }
+            
+        
+    }
+
+    
+  
+
     return (
         <div className="c-container">
             <header className="App-header">
@@ -148,13 +173,13 @@ function Form() {
 
             <form id="form" onSubmit={onSubmit}>
 
-                {/* <input name="input" onChange={onChange} type="text" placeholder='write here bruh'></input> */}
-                <input onChange={onChange} className="input" type="text" name="input" placeholder="write here bruh"></input>
+            
+                <input onChange={onChange} value={values.input} className="input" type="text" name="input"  placeholder="write here bruh"></input>
             </form>
             <br></br>
             <h2>What language bruh?</h2>
             <audio src={audioSrc} ref={elementRef}></audio>
-            <select name="languages" onChange={twoCalls} id="selectOption">
+            <select name="language"  onChange={twoCalls} value={values.selectedLang} id="selectOption">
                 <option value="">Pick a language bruh</option>
                 <option value="es">Spanish</option>
                 <option value="it">Italian</option>
@@ -169,13 +194,15 @@ function Form() {
             </select>
             <br></br>
             <br></br>
-            {/* <button onClick={onSubmit}>Translate it bruh</button> */}
-            <button onClick={onSubmit}>Translate it bruh<div class="arrow-wrapper"><div class="arrow"></div></div></button>
+          
+            {/* {isDisabled() ? <button onClick={onSubmit} disabled={true}>Translate it bruh<div class="arrow-wrapper"><div class="arrow"></div></div></button> :  */}
+             <button onClick={onSubmit} disabled={isDisabled()}>Translate it bruh<div class="arrow-wrapper"><div class="arrow"></div></div></button> 
+            
             <br></br>
             {translation ? <div class="card"><h2>{translation}</h2></div> : null}
             
             <br></br>
-            {/* <i id="speaker" className="fa-solid fa-volume-high" onClick={onPlay}></i> */}
+        
             <div>
                 <button id="speaker" onClick={onPlay}></button>
             </div>
