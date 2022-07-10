@@ -31,7 +31,7 @@ function Form() {
 
     // useEffect(() => {
     //     elementRef.current.play();
-        
+
     // }, [audioSrc])
 
     const [sequence, setSequence] = useState({
@@ -82,7 +82,7 @@ function Form() {
             let translation = await getTextToVoice(getEasterEggTranslation());
             setTranslation("?????")
             setaudioSrc(translation.data.audio_file);
-           
+
         } else {
             axios.request(options).then(async (response) => {
                 setTranslation(response.data.responseData.translatedText);
@@ -102,7 +102,7 @@ function Form() {
 
     const onPlay = async () => {
         elementRef.current.play();
-       
+
     }
 
     const renderImg = () => {
@@ -148,21 +148,24 @@ function Form() {
     return (
         <div className="c-container">
             <header className="App-header">
-
-                <h1>What do you wanna translate bruh?</h1>
-
+                <h1>What would you like to translate?</h1>
             </header>
 
             <form id="form" onSubmit={onSubmit}>
-
-
-                <input onChange={onChange} value={values.input} className="input" type="text" name="input" placeholder="write here bruh"></input>
+                <input
+                    onChange={onChange}
+                    value={values.input}
+                    className="input"
+                    type="text"
+                    name="input"
+                    placeholder="Enter Text">
+                </input>
             </form>
             <br></br>
-            <h2>What language bruh?</h2>
+            <h2>Select Language</h2>
             <audio src={audioSrc} ref={elementRef}></audio>
             <select name="language" onChange={twoCalls} value={values.selectedLang} id="selectOption">
-                <option value="">Pick a language bruh</option>
+                <option value="">Choose a language</option>
                 <option value="es">Spanish</option>
                 <option value="it">Italian</option>
                 <option value="fr">French</option>
@@ -178,11 +181,15 @@ function Form() {
             <br></br>
 
 
-            <button
+           {isDisabled() ? <button
+                className="not-pure-button pure-button-disabled"
+                onClick={onSubmit}
+                disabled={isDisabled()}>Translate it!<div className="arrow-wrapper"><div className="arrow"></div></div>
+            </button> : <button
                 className="pure-button pure-button-disabled"
                 onClick={onSubmit}
-                disabled={isDisabled()}>Translate it bruh<div className="arrow-wrapper"><div className="arrow"></div></div>
-            </button>
+                disabled={isDisabled()}>Translate it!<div className="arrow-wrapper"><div className="arrow"></div></div>
+            </button>} 
 
             <br></br>
             {translation ? <div className="card"><h2>{translation}</h2></div> : null}
@@ -190,7 +197,7 @@ function Form() {
             <br></br>
 
             <div>
-                <button id="speaker" onClick={onPlay}></button>
+                {isDisabled() ? <button id="disabled-speaker"></button> : <button id="speaker" onClick={onPlay}></button>}
             </div>
             <br></br>
             <img id='myImg'></img>
