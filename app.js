@@ -20,7 +20,7 @@ app.use(cors());
 
 app.use('/api/static', express.static(path.join(__dirname + '/static')));
 
-app.post("/api/test", async (req,res) => {
+app.post("/api/test", cors(), async (req,res) => {
 	let text = req.body.text;
 	let language = req.body.language || 'en';
 	console.log(text);
