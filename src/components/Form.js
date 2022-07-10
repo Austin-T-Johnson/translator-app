@@ -28,9 +28,11 @@ function Form() {
     const [goto, setGoto] = useState();
     const [voiceCode, setVoiceCode] = useState();
     const [audioSrc, setaudioSrc] = useState()
-    useEffect(() => {
-        // elementRef.current.play();
-    }, [audioSrc])
+
+    // useEffect(() => {
+    //     elementRef.current.play();
+        
+    // }, [audioSrc])
 
     const [sequence, setSequence] = useState({
         segments: [108, 138],
@@ -39,9 +41,7 @@ function Form() {
     const elementRef = useRef();
 
     const onChange = evt => {
-       
-        setValues({...values, input: evt.target.value})
-       
+        setValues({ ...values, input: evt.target.value })
     }
 
     const onSubmit = evt => {
@@ -50,15 +50,13 @@ function Form() {
     }
 
     const selectLanguage = (e) => {
-        console.log('EVENT TARGET:', e.target.value)
-        setValues({...values, selectedLang: e.target.value});
-
+        setValues({ ...values, selectedLang: e.target.value });
     }
+
     const setEasterEgg = () => {
         setIsStopped(false);
         setHasEasterEgg(true)
     }
-
 
     const animate = () => {
         setGoto({
@@ -81,18 +79,15 @@ function Form() {
         };
 
         if (values.selectedLang === 'en') {
-            // let translation = await getTextToVoice(getEasterEggTranslation());
-            // setaudioSrc(translation.data.audio_file);
+            let translation = await getTextToVoice(getEasterEggTranslation());
             setTranslation("?????")
+            setaudioSrc(translation.data.audio_file);
+           
         } else {
             axios.request(options).then(async (response) => {
                 setTranslation(response.data.responseData.translatedText);
-                console.log(response.data.responseData.translatedText)
-
                 let translation = await getTextToVoice(response.data.responseData.translatedText);
-
                 setaudioSrc(translation.data.audio_file);
-
 
             }).catch(function (error) {
                 console.error(error);
@@ -102,14 +97,12 @@ function Form() {
     }
 
     const getTextToVoice = (text) => {
-
-
         return axios.post('/api/test', { text, language })
     }
 
     const onPlay = async () => {
         elementRef.current.play();
-        //elementRef.src = url;
+       
     }
 
     const renderImg = () => {
@@ -145,41 +138,30 @@ function Form() {
     }
 
     const isDisabled = () => {
-       if(values.input === '' || values.selectedLang === '' ){
-        // console.log("input in disabled func:", values.input)
-        // console.log("lang in disabled func:", values.selectedLang)
+        if (values.input === '' || values.selectedLang === '') {
             return true;
-           
-
-        } else  {
-            console.log("input in disabled func:", values.input)
-            console.log("lang in disabled func:", values.selectedLang)
+        } else {
             return false;
         }
-            
-        
     }
-
-    
-  
 
     return (
         <div className="c-container">
             <header className="App-header">
-              
+
                 <h1>What do you wanna translate bruh?</h1>
-                  
-               </header>
+
+            </header>
 
             <form id="form" onSubmit={onSubmit}>
 
-            
-                <input onChange={onChange} value={values.input} className="input" type="text" name="input"  placeholder="write here bruh"></input>
+
+                <input onChange={onChange} value={values.input} className="input" type="text" name="input" placeholder="write here bruh"></input>
             </form>
             <br></br>
             <h2>What language bruh?</h2>
             <audio src={audioSrc} ref={elementRef}></audio>
-            <select name="language"  onChange={twoCalls} value={values.selectedLang} id="selectOption">
+            <select name="language" onChange={twoCalls} value={values.selectedLang} id="selectOption">
                 <option value="">Pick a language bruh</option>
                 <option value="es">Spanish</option>
                 <option value="it">Italian</option>
@@ -194,15 +176,19 @@ function Form() {
             </select>
             <br></br>
             <br></br>
-          
-            {/* {isDisabled() ? <button onClick={onSubmit} disabled={true}>Translate it bruh<div class="arrow-wrapper"><div class="arrow"></div></div></button> :  */}
-             <button onClick={onSubmit} disabled={isDisabled()}>Translate it bruh<div class="arrow-wrapper"><div class="arrow"></div></div></button> 
-            
+
+
+            <button
+                className="pure-button pure-button-disabled"
+                onClick={onSubmit}
+                disabled={isDisabled()}>Translate it bruh<div className="arrow-wrapper"><div className="arrow"></div></div>
+            </button>
+
             <br></br>
-            {translation ? <div class="card"><h2>{translation}</h2></div> : null}
-            
+            {translation ? <div className="card"><h2>{translation}</h2></div> : null}
+
             <br></br>
-        
+
             <div>
                 <button id="speaker" onClick={onPlay}></button>
             </div>

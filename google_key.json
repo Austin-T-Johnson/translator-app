@@ -1,12 +1,9 @@
 {
-    "type": "service_account",
-    "project_id": "chrome-lambda-278117",
-    "private_key_id": "2609310921c9b38530ebc93fa1114c043056b0c6",
-    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCpgow350m6eH9A\ntEnB7cAx234BSqEJYyjHgDOda+N9e5zWnougdqD0k8oZcaIYbyIBOJyHAgqe/TLs\nsJwh2e7YpyTK6MvImfHVNMoDsLz9IdgidNhMmdWclMIObjA0U0nbf4FyxJlLozjY\nEW7eB6AWE9ngOHdAsL/DX8XgJ9sthZHZ+2K0UYAI/x6Vv6nyypyBD2s0fKsIKgMd\no/2ApJT7aygPM2OGXJLkDOzcFy0CxMkhL6aHh1022LZP+3BMpOrl/m7OJH85fk1J\nYjEpMS8Mc+MMJAS2f0Dgjy7q1rnj1Y7Tsjr0dB/QBU84heq1jHmixbKv4VACHPJ9\np1ww7NWjAgMBAAECggEANwxJQwJehCsLkFS8OzldmBNiyUKWJ3lHTfqJSI838pFJ\nLr2QNI0x2huAn2CytmKo1WKwGnwEPPuXJRx5p9ihY0Rsg2S0gTHVQlsBW89yoHX0\nPcRaVg4DO/VnS85m4ydFLf4raL0F13VrSWfn7DzntSO/Nry/pYeAzw70MMZgvFhD\n5VIu4cNuscYbzqUN5NA2nOmQWZQenwbxyt+kFV/5AHLd5egwo8jzakXXg3jBxcPD\niznjWGErg/DKVEL5Fiy9+GnUF7X20pa3p12rWf1nJK0uMInJ+UK28FvSs4OHM92V\nAtmUT4P7IqYTEB2ibEM/SnkaSyEk6MFcp/vLgPHCAQKBgQDSkll/WJBmjtnqZGp1\nOslNdgCmq0SQynnZnBhOodNMtAhIk4jTT+1Yl7yjCWaWLB3piFYJIcAYP0zaVMqK\nHBit38MdD420E91nYUS+SMzfN0NAr2db2WWPcALbEF0eLNsJIZtwhxXd2YvDbhNv\nfgZYPGbDr8Sd9Lbfe25aiAM7AQKBgQDOFGcODDscIgcdKUyu8NNtadCsj84YD+Oo\nZUYTS42qkdft0tjOTa2g6NX5bv7OjDOmXbzGo8Ei3X06w6PsIT/wzHMmIpehDZPI\nwsySxJK6Tpm9ZLZHRt6hoisHfkNBY5B7Rh19FWaxmkZVKuselmt4Cy3QACGBo6p/\nrlG+NTJEowKBgAFcwQd54zVGp1JE5AtuHe9KXCa35PGq3a7yu5WGpn9Qit0tVy1G\nzxpLoQTNAsTl9CuWnjfg6AVAI5cmBUlvdRlq4TBG8XvAxSXuEyvH/MtU6DJ68AhA\nF9AdwWb5bCDN2XztorvPo+yTg7v38lg+UHwxp9iMQpFjC+vWOJiNWLgBAoGAUvRZ\ni4kW3jtAW9e9G4qrwRZgPqZgksUKokWqEKhQLYIpxn0icuFH7Ebto0uv3FsJi4We\nMOPIIg3AlEAeozW7NGZIT+iK2vTJMX5gtQ/V9JMhReDdkxGPGsdZxNlpn0/B4C2Y\nPzq3LPTqLOxq2tQ4DImLdngnBLVqM51rIELvqjsCgYBYTeZ6+Fx1pNl5R+gF4Nas\nANT7QX7Fs896IPi1bhK3NsoxVh2DkJncRX7yvfc9uuOlLJrfkh330oMog8lu0atO\nTET2OQ1rdafeT3Whd/eyPZGN0E22E0JIvcaX1H+tx70bZaZ6dkGqWh06JvnKyXSX\nargSbdck9KeIbtoq/+41Sw==\n-----END PRIVATE KEY-----\n",
-    "client_email": "translator@chrome-lambda-278117.iam.gserviceaccount.com",
-    "client_id": "105855560761442629967",
-    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-    "token_uri": "https://oauth2.googleapis.com/token",
-    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/translator%40chrome-lambda-278117.iam.gserviceaccount.com"
-  }
+    "installed":{"client_id":"953125602686-cc04dfbjhd4dfeg1lii8onu0dmov23vl.apps.googleusercontent.com",
+    "project_id":"stable-dogfish-355917",
+    "auth_uri":"https://accounts.google.com/o/oauth2/auth",
+    "token_uri":"https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
+    "client_secret":"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",
+    "redirect_uris":["http://localhost"]}
+}

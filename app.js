@@ -29,7 +29,7 @@ app.post("/api/test", async (req,res) => {
 	"voice": {
 		"languageCode": language,
 		"name": "string",
-		"ssmlGender": "FEMALE"
+		"ssmlGender": "MALE"
 	  },
 	  "audioConfig":{
 		"audioEncoding":"MP3" ,
@@ -40,7 +40,7 @@ app.post("/api/test", async (req,res) => {
 	  }
 		
 	  }
-		let {data} =  await axios.post("https://texttospeech.googleapis.com/v1beta1/text:synthesize?key=AIzaSyAy3Rt7-IMFBi39YXHjjKhI0icjWDBM8DM", post)
+		let {data} =  await axios.post("https://texttospeech.googleapis.com/v1beta1/text:synthesize?key=AIzaSyDXaZPPu4oVgU8qUztd52dswQ804wjcPLY", post)
 		let audioContent = data.audioContent;
 		const writeFile = util.promisify(fs.writeFile);
 		var buf = Buffer.from(audioContent, 'base64');
