@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require('cors');
 const app = express();
 // const path = require('path');
 const bodyParser = require("body-parser");
@@ -15,6 +16,7 @@ let API_KEY = config.API_KEY;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors());
 
 app.use('/api/static', express.static(path.join(__dirname + '/static')));
 
