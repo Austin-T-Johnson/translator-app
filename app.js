@@ -14,24 +14,18 @@ const client = new textToSpeech.TextToSpeechClient();
 
 let API_KEY = config.API_KEY;
 
-let corsAllow = ['http://localhost:3000/api/test', 'https://translator-app-two.vercel.app/']
-let corsOptionsDelegate = function (req, callback) {
-    let corsOptions;
-    if(corsAllow.indexOf(req.header('Origin')) !== -1) {
-        corsOptions = {origin: true}
-    } else {
-        corsOptions = {origin: false}
-    }
-    callback(null, corsOptions)
-}
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({
+    origin: '*',
+    methods: 'POST'
+}));
 
 app.use('/api/static', express.static(path.join(__dirname + '/static')));
 
-app.post("/api/test", cors(corsAllow), async (req,res) => {
+app.post("/api/test", cors(), async (req,res, next) => {
 	let text = req.body.text;
 	let language = req.body.language || 'en';
 	console.log(text);
@@ -66,7 +60,7 @@ app.post("/api/test", cors(corsAllow), async (req,res) => {
 			return Math.floor(Math.random() * (max - min + 1) + min)
 		}
 	  res.status(200).send({message:'Success', audio_file:`http://localhost:3001/api/static/output.mp3?key=${randomIntFromInterval(0,1000)}`})
-	  
+	  next();
 })
 
 
