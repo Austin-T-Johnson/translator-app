@@ -14,13 +14,24 @@ const client = new textToSpeech.TextToSpeechClient();
 
 let API_KEY = config.API_KEY;
 
+let corsAllow = ['http://localhost:3000/api/test', 'https://translator-app-two.vercel.app/']
+let corsOptionsDelegate = function (req, callback) {
+    let corsOptions;
+    if(corsAllow.indexOf(req.header('Origin')) !== -1) {
+        corsOptions = {origin: true}
+    } else {
+        corsOptions = {origin: false}
+    }
+    callback(null, corsOptions)
+}
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 
 app.use('/api/static', express.static(path.join(__dirname + '/static')));
 
-app.post("/api/test", cors(), async (req,res) => {
+app.post("/api/test", cors(corsAllow), async (req,res) => {
 	let text = req.body.text;
 	let language = req.body.language || 'en';
 	console.log(text);
