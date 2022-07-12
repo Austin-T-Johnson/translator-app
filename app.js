@@ -19,7 +19,7 @@ let API_KEY = config.API_KEY;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors({
-    origin:['https://translator-app-two.vercel.app/api/test'],
+    origin:['https://localhost:3000/api/test'],
     method:["GET", "POST", "OPTIONS", "PUT"],
     credentials: true
 }));
