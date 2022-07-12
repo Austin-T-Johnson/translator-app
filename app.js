@@ -9,6 +9,7 @@ const config = require('./config.json');
 const textToSpeech = require('@google-cloud/text-to-speech');
 const fs = require('fs-extra');
 const util = require('util');
+const { access } = require('./src/middleware/access.js');
 
 const client = new textToSpeech.TextToSpeechClient();
 
@@ -18,27 +19,19 @@ let API_KEY = config.API_KEY;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cors({
-    origin:['https://localhost:3000/api/test'],
-    method:["GET", "POST", "OPTIONS", "PUT"],
-    credentials: true
-}));
-app.options('*', cors())
+// app.use(cors({
+//     origin:['https://localhost:3000/api/test'],
+//     method:["GET", "POST", "OPTIONS", "PUT"],
+//     credentials: true
+// }));
+// app.options('*', cors())
 
 
 
 app.use('/api/static', express.static(path.join(__dirname + '/static')));
 
-app.post("/api/test", async (req,res, next) => {
-    app.use((req,res,next) => {
-        res.setHeader("Access-Control-Allow-Origin", "*");
-        res.setHeader(
-            "Access-Control-Allow-Methods",
-            "OPTIONS GET, POST, PUT, PATCH, DELETE"
-        );
-        res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization")
-        next();
-    });
+app.post("/api/test", access, async (req,res, next) => {
+    
 	let text = req.body.text;
 	let language = req.body.language || 'en';
 	console.log(text);
