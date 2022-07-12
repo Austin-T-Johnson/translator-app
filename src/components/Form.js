@@ -181,7 +181,7 @@ function Form() {
             <br></br>
 
 
-           {isDisabled() ? <button
+            {isDisabled() ? <button
                 className="not-pure-button pure-button-disabled"
                 onClick={onSubmit}
                 disabled={isDisabled()}>Translate it!<div className="arrow-wrapper"><div className="arrow"></div></div>
@@ -189,7 +189,7 @@ function Form() {
                 className="pure-button pure-button-disabled"
                 onClick={onSubmit}
                 disabled={isDisabled()}>Translate it!<div className="arrow-wrapper"><div className="arrow"></div></div>
-            </button>} 
+            </button>}
 
             <br></br>
             {translation ? <div className="card"><h2>{translation}</h2></div> : null}
@@ -201,7 +201,11 @@ function Form() {
             </div>
             <br></br>
             <img id='myImg'></img>
-            <video id="vid" src={video} muted loop autoPlay controls={true} playsInline></video> 
+            <video id="vid" src={video} muted loop autoPlay controls={true} playsInline>
+                <source src={video} type="video/mp4"></source>
+                <source src={video} type="video/webm"></source>
+                <source src={video} type="video/mov"></source>
+            </video>
 
 
             <div onClick={() => animate()} className="easter-egg-btn ">
