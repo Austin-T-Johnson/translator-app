@@ -201,7 +201,7 @@ function Form() {
             </div>
             <br></br>
             <img id='myImg'></img>
-            <video id="vid" src={video} muted loop autoPlay></video>
+            <video id="vid" src={video} muted loop autoPlay controls={true}></video>
 
             <div onClick={() => animate()} className="easter-egg-btn ">
                 <Lottie options={defaultOptions}
