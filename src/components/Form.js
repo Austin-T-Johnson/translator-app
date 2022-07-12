@@ -202,7 +202,7 @@ function Form() {
             <br></br>
             <img id='myImg'></img>
             <video id="vid" playsInline muted loop autoPlay="autoPlay" preload="auto">
-                <source src={video} type="video/mp4"></source>
+                <source src={video} type="video/webm"></source>
             </video>
 
 
