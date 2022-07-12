@@ -19,13 +19,15 @@ let API_KEY = config.API_KEY;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors({
-    origin: '*',
-    methods: 'POST'
+    origin:['https://translator-app-two.vercel.app/api/test'],
+    method:["GET", "POST", "OPTIONS", "PUT"],
+    credentials: true
 }));
+app.options('*', cors())
 
 app.use('/api/static', express.static(path.join(__dirname + '/static')));
 
-app.post("/api/test", cors(), async (req,res, next) => {
+app.post("/api/test", async (req,res, next) => {
 	let text = req.body.text;
 	let language = req.body.language || 'en';
 	console.log(text);
