@@ -9,13 +9,16 @@ const config = require('./config.json');
 const textToSpeech = require('@google-cloud/text-to-speech');
 const fs = require('fs-extra');
 const util = require('util');
+const os = require('os')
 const { access } = require('./src/middleware/access.js');
 
 const client = new textToSpeech.TextToSpeechClient();
 
 let API_KEY = config.API_KEY;
 
-let hostname = location.hostname.indexOf('localhost')  > -1 ? 'http://localhost:3001' : 'http://adhypevisuals.com'
+// console.log(os.hostname())
+// let hostname = os.hostname.indexOf('localhost')  > -1 ? 'http://localhost:3001' : 'http://adhypevisuals.com'
+
 
 
 
@@ -67,7 +70,7 @@ app.post("/api/test", access, async (req,res, next) => {
 		function randomIntFromInterval(min, max) { // min and max included 
 			return Math.floor(Math.random() * (max - min + 1) + min)
 		}
-	  res.status(200).send({message:'Success', audio_file:`${hostname}/api/static/output.mp3?key=${randomIntFromInterval(0,1000)}`})
+	  res.status(200).send({message:'Success', audio_file:`http://adhypevisuals.com/api/static/output.mp3?key=${randomIntFromInterval(0,1000)}`})
 	  next();
 })
 
