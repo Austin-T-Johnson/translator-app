@@ -53,6 +53,7 @@ app.post("/api/test", access, async (req, res, next) => {
     }
     res.status(200).send({ message: 'Success', audio_file: `https://translator.adhypevisuals.com/api/static/output.mp3?key=${randomIntFromInterval(0, 1000)}` })
     next();
+    
 })
 
 app.use((req, res, next) => {
