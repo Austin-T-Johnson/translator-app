@@ -51,7 +51,7 @@ app.post("/api/test", access, async (req, res, next) => {
     function randomIntFromInterval(min, max) { // min and max included 
         return Math.floor(Math.random() * (max - min + 1) + min)
     }
-    res.status(200).send({ message: 'Success', audio_file: `http://adhypevisuals.com/api/static/output.mp3?key=${randomIntFromInterval(0, 1000)}` })
+    res.status(200).send({ message: 'Success', audio_file: `https://translator.adhypevisuals.com/api/static/output.mp3?key=${randomIntFromInterval(0, 1000)}` })
     next();
 })
 
