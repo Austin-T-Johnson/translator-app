@@ -102,7 +102,6 @@ function Form() {
 
     const onPlay = async () => {
         elementRef.current.play();
-
     }
 
     const renderImg = () => {
