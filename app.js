@@ -37,7 +37,6 @@ app.post("/api/test", access, async (req, res, next) => {
             "speakingRate": 1,
             "pitch": 1,
             "volumeGainDb": 1,
-            //	"sampleRateHertz": 48000
         }
     }
     let { data } = await axios.post("https://texttospeech.googleapis.com/v1beta1/text:synthesize?key=AIzaSyAz3p9vPNpGPMVpD1ObE5hINlYa9tCO-do", post)
@@ -53,7 +52,7 @@ app.post("/api/test", access, async (req, res, next) => {
     }
     res.status(200).send({ message: 'Success', audio_file: `https://translator.adhypevisuals.com/api/static/output.mp3?key=${randomIntFromInterval(0, 1000)}` })
     next();
-    
+
 })
 
 app.use((req, res, next) => {
