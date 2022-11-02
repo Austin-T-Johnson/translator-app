@@ -1,6 +1,6 @@
 😀 A simple translation app built in React! 😀
 
- We are using Axios to call two different API's, 
+  Utilizing Axios to call two different API's, 
  - English to a Selected Language API 
  - Google text to speech API 
 
